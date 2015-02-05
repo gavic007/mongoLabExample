@@ -4,7 +4,7 @@ angular.module("appModule")
     .controller('mainCtrl', function($scope, $http){
         console.log("main controller loaded!");
 
-        $scope.textField = "";
+        $scope.textField = " ";
 
         // Normally, data like this would be stored in a database, and this controller would issue an http:get request for it.
         $scope.data = [];
