@@ -10,9 +10,9 @@
 
             <form ng-submit="addData()">
                 <input ng-model="name" type="text" size="20" placeholder="add a pets name!">
-                <input ng-model="weight" type="text" size="20" placeholder="add the pet's weight!">
+                <input ng-model="weight" type="number" size="20" placeholder="add the pet's weight!">
                 <input type="submit" value="submit" class="btn btn-primary">
-                <span class="floatRight">Items in this list: {{heaviest()}}</span>
+                <span class="floatRight">Name: {{heaviestPet.name}} Weight: {{heaviestPet.weight}}</span>
             </form>
 
         </li>

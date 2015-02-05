@@ -6,6 +6,7 @@ angular.module("appModule")
 
         $scope.name = "";
         $scope.weight = "";
+        $scope.heaviestPet = {name: "Absent", weight: -1};
 
         // Normally, data like this would be stored in a database, and this controller would issue an http:get request for it.
         $scope.data = [];
@@ -13,13 +14,14 @@ angular.module("appModule")
         $scope.getPets = function(){
             $http.get('api/pets').success(function(pets) {
                 $scope.data = pets;
+                $scope.heaviestPet = $scope.heaviest($scope.data);
             });
         };
 
-        $scope.getPets();
+//        $scope.getPets();
 
         $scope.addData = function(){
-            if($scope.name.length >= 1 && $scope.weight.length >= 1) {
+            if($scope.name.length >= 1 && $scope.weight > 0) {
                 $http.post('api/pets', {name: $scope.name, weight: $scope.weight}).success(function(){
                     $scope.getPets();
                 });
@@ -42,15 +44,27 @@ angular.module("appModule")
             return $scope.data.length;
         };
 
-        $scope.heaviest = function() {
-            var heavy = 0;
-
-            if ($scope.data.length > 0){
-                var heavy = $scope.data[0].weight;
+        $scope.weightIndex = 0;
+        $scope.heaviest = function(arrayOfPets) {
+            var heavy = {name: "Absent", weight: -1};
+            for(var i = 0; i < arrayOfPets.length; i++) {
+                if (heavy.weight < arrayOfPets[i].weight) {
+                    heavy = arrayOfPets[i];
+                }
             }
-
-            console.log("weight:");
-
+//            if ($scope.data.length > 0){
+//                heavy = $scope.data[0].weight;
+//                for (var j = 0; j < $scope.data.length; j++) {
+//                    if (heavy < $scope.data[j].weight) {
+//                        heavy = $scope.data[j].weight;
+//                        $scope.weightIndex = j;
+//                    }
+//                }
+//            }
             return heavy;
+        }
+
+        $scope.getName = function() {
+            return $scope.data[$scope.weightIndex].name;
         }
     });
