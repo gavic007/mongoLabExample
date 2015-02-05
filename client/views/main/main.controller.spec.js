@@ -20,4 +20,20 @@ describe('Testing controller: mainCtrl', function(){
         expect(true).toEqual(true);
     });
 
+    it('testing heaviest on empty array', function(){
+        var arrayOfPets = [];
+        expect(scope.heaviest(arrayOfPets)).toEqual({name: "Absent", weight: -1});
+    });
+
+    it('testing heaviest', function(){
+        var arrayOfPets = [{name: "jerry", weight: 4}, {name: "tom", weight: 7}];
+        expect(scope.heaviest(arrayOfPets)).toEqual({name: "tom", weight: 7});
+    });
+
+    it('testing heaviest', function(){
+        var arrayOfPets = [{name: "jerry", weight: 4}, {name: "tom", weight: 4}];
+        expect(scope.heaviest(arrayOfPets)).toEqual({name: "jerry", weight: 4});
+    });
+
+
 });

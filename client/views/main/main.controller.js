@@ -18,8 +18,6 @@ angular.module("appModule")
             });
         };
 
-//        $scope.getPets();
-
         $scope.addData = function(){
             if($scope.name.length >= 1 && $scope.weight > 0) {
                 $http.post('api/pets', {name: $scope.name, weight: $scope.weight}).success(function(){
@@ -36,15 +34,11 @@ angular.module("appModule")
             });
         };
 
-        $scope.cat = function(str1, str2){
-            return str1 + str2;
-        };
 
         $scope.itemsInList = function(){
             return $scope.data.length;
         };
 
-        $scope.weightIndex = 0;
         $scope.heaviest = function(arrayOfPets) {
             var heavy = {name: "Absent", weight: -1};
             for(var i = 0; i < arrayOfPets.length; i++) {
@@ -52,19 +46,7 @@ angular.module("appModule")
                     heavy = arrayOfPets[i];
                 }
             }
-//            if ($scope.data.length > 0){
-//                heavy = $scope.data[0].weight;
-//                for (var j = 0; j < $scope.data.length; j++) {
-//                    if (heavy < $scope.data[j].weight) {
-//                        heavy = $scope.data[j].weight;
-//                        $scope.weightIndex = j;
-//                    }
-//                }
-//            }
             return heavy;
         }
 
-        $scope.getName = function() {
-            return $scope.data[$scope.weightIndex].name;
-        }
     });
