@@ -19,8 +19,8 @@ angular.module("appModule")
         $scope.getPets();
 
         $scope.addData = function(){
-            if($scope.name.length >= 1, $scope.weight.length >= 1) {
-                $http.post('api/pets', {text: $scope.name, number: $scope.weight}).success(function(){
+            if($scope.name.length >= 1 && $scope.weight.length >= 1) {
+                $http.post('api/pets', {name: $scope.name, weight: $scope.weight}).success(function(){
                     $scope.getPets();
                 });
                 $scope.name = "";
