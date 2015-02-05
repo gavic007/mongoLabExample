@@ -42,4 +42,15 @@ angular.module("appModule")
             return $scope.data.length;
         };
 
+        $scope.heaviest = function() {
+            var heavy = 0;
+
+            if ($scope.data.length > 0){
+                var heavy = $scope.data[0].weight;
+            }
+
+            console.log("weight:");
+
+            return heavy;
+        }
     });
