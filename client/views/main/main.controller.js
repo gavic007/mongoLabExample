@@ -35,9 +35,6 @@ angular.module("appModule")
         };
 
 
-        $scope.itemsInList = function(){
-            return $scope.data.length;
-        };
 
         $scope.heaviest = function(arrayOfPets) {
             var heavy = {name: "Absent", weight: -1};
