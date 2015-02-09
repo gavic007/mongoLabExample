@@ -23,3 +23,15 @@ img {
 .floatRight {
     float: right;
 }
+
+.excellent {
+    color: green;
+}
+
+.good {
+    color: #a35717;
+}
+
+.problematic {
+    color: red;
+}

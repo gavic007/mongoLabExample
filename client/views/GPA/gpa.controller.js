@@ -7,7 +7,6 @@ angular.module("appModule")
         $scope.courseName = "";
         $scope.credits = "";
         $scope.letterGrade = "";
-        $scope.totalGpa = {courseName: "SoftWare D", credits: 5, letterGrade: "A"};
 
         // Normally, data like this would be stored in a database, and this controller would issue an http:get request for it.
         $scope.gpaData = [];
@@ -15,12 +14,11 @@ angular.module("appModule")
         $scope.getPets = function(){
             $http.get('api/pets').success(function(pets) {
                 $scope.gpaData = pets;
-                $scope.totalGpa = $scope.calculateGpa($scope.gpaData);
             });
         };
 
         $scope.addClass = function(){
-            if($scope.courseName.length >= 1 && $scope.credits >= 0 && $scope.letterGrade.length >= 1 ) {
+            if($scope.courseName.length >= 1 && $scope.credits >= 1 && $scope.letterGrade.length >= 1 ) {
                 $http.post('api/pets', {courseName: $scope.courseName, credits: $scope.credits, letterGrade: $scope.letterGrade}).success(function(){
                     $scope.getPets();
                 });
@@ -35,11 +33,6 @@ angular.module("appModule")
                 $scope.getPets();
             });
         };
-
-        $scope.itemsInList = function(){
-            return $scope.gpaData.length;
-        };
-
 
         $scope.letterToNum = function(letter){
             console.log(letter);
@@ -59,46 +52,26 @@ angular.module("appModule")
         };
 
         $scope.calculateGpa = function(){
-            var grade = "markUp";
             if($scope.gpaData.length == 0){
                 return 0;
             }
-            var totalScore = 0;
+            var creditByGrade = 0;
             var totalCredits = 0;
-            for (var i = 0; i < $scope.gpaData.length; i++){
-                grade = $scope.gpaData[i].letterGrade;
-                var credit = Number($scope.gpaData[i].credits);
-                console.log(grade);
-                var gradeNumber = $scope.letterToNum(grade);
-                totalScore += credit*gradeNumber;
-                totalCredits += credit;
+            for(var i = 0; i< $scope.gpaData.length;i++){
+                totalCredits += $scope.gpaData[i].credits;
+                creditByGrade += ($scope.gpaData[i].credits * $scope.letterToNum($scope.gpaData[i].letterGrade));
             }
-            return (totalScore/totalCredits);
-        }
+             return creditByGrade / totalCredits;
+        };
+
         //Adds color to the Gpa calculator
-        $scope.colorGpa = function(){
-            var gpa = $scope.calculateGpa();
-            if(gpa == 4){
-                return {"color":"Purple"}
-
+        $scope.colorGpa = function(gpa){
+            if(gpa >= 3.0){
+                return "excellent";
+            }else if(gpa >= 2.0){
+                return "good";
+            }else if (gpa < 2.0){
+                return "problematic";
             }
-            else if(gpa < 4 && gpa >= 3){
-                return {"color":"Green"}
-
-            }
-            else  if(gpa < 3 && gpa >= 2){
-                return {"color":"Blue"}
-
-            }
-            else if(gpa < 2 && gpa >= 1){
-                return {"color":"Orange"}
-
-            }
-            else if(gpa < 1 && gpa >= 0){
-                return {"color":"Red"}
-
-            }
-
-        }
-
+        };
     });

@@ -16,6 +16,22 @@ describe('Testing controller: mainCtrl', function(){
         });
     }));
 
+    it("should be able to add a pet to the database", function(){
+        var initialLength = scope.data.length;
+        scope.data=[{name: "horse", weight: 198}];
+        scope.addData();
+        expect(scope.data.length > initialLength).toEqual(true);
+    });
+
+    it('should be able to remove a pet to the database', function(){
+        scope.data=[{name: "goat", weight: 46},
+            {name: "cow", weight: 156},
+            {name: "mouse", weight: 0.5}];
+        var initialLength = scope.data.length;
+        scope.removeData(0);
+        expect(scope.data.length < initialLength);
+    });
+
     it('dummy test should pass', function(){
         expect(true).toEqual(true);
     });
@@ -34,6 +50,4 @@ describe('Testing controller: mainCtrl', function(){
         var arrayOfPets = [{name: "jerry", weight: 4}, {name: "tom", weight: 4}];
         expect(scope.heaviest(arrayOfPets)).toEqual({name: "jerry", weight: 4});
     });
-
-
 });

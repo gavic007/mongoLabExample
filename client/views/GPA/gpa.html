@@ -11,7 +11,7 @@
                 <input ng-model="credits" type="number" size="20" placeholder="add the number of credits">
                 <input ng-model="letterGrade" type="text" size="20" placeholder="add the letter grade!">
                 <input type="submit" value="submit" class="btn btn-primary">
-                <span ng-style="colorGpa()" class="floatRight">Current GPA: {{calculateGpa()}}</span>
+                <span class="floatRight">Your GPA: <span class={{colorGpa(calculateGpa())}}>{{calculateGpa()}}</span></span> <!---Change the color of the GPA depending it's value--->
             </form>
         </li>
         <li class="list-group-item" ng-repeat="info in gpaData">Class: {{info.courseName}} Credit: {{info.credits}} Grade: {{info.letterGrade}}<span class="glyphicon glyphicon-trash floatRight" style="color: red" ng-click="removeClass($index)"></span></li>
